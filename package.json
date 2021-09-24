@@ -1,16 +1,25 @@
 {
   "name": "js-test",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev" : "parcel index.html",
-    "build" : "parcel build index.html"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/8wallDawn/JS-Test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/8wallDawn/JS-Test/issues"
+  },
+  "homepage": "https://github.com/8wallDawn/JS-Test#readme",
+  "description": ""
 }
