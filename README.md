@@ -6,7 +6,11 @@
 
 자바스크립트의 데이터타입은 다음과 같다.
 
-1.  String(문자열) 2. Number(숫자) 3. Boolean(true, false의 값을 갖는 데이터 타입) 4. Array(배열) 5. Object(객체)
+1.  String(문자열)
+2.  Number(숫자)
+3.  Boolean(true, false의 값을 갖는 데이터 타입)
+4.  Array(배열)
+5.  Object(객체)
     <br>
 
 - String(문자열)<br>
