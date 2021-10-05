@@ -1,7 +1,7 @@
 //구조 분해 할당(Destructuring assignment)
 // 비구조화 할당
 
-/* 구조분해 할당은 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 JavaScript 표현식이다. */
+// 구조분해 할당은 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 JavaScript 표현식이다.
 
 const user = {
     name: 'Lee',
@@ -9,11 +9,13 @@ const user = {
     email : 'dankthedust@gmail.com'
 }
 
+// 할당하는 객체의 key값과 객체 변수의 값이 일치하는 경우 할당된다.
 var {name, age, email, address} = user;
 // E.g, user.adress
+
 // 독립 구문으로 변수에 구조분해를 통해 값을 할당할 때에는 ()를 통해 묶어 주어야 한다.
-// var name, age, email, address;
-// ({name, age, email, address} = user);
+var name, age, email, address;
+({name, age, email, address} = user);
 
 console.log(name); //Lee
 console.log(age); //25
