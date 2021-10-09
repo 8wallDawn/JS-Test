@@ -1,4 +1,4 @@
-import getType from './getType'
+import getType from './exportGetType'
 
 console.log(typeof "hello world") // String
 console.log(typeof 123) // Number
