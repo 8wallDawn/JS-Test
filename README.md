@@ -50,7 +50,7 @@ json이 문자데이터인 이유는 데이터 통신이 무겁지 않게 이루
 - 객체(Object)
 - null
 
-##Storage의 개념(local, session)
+## Storage의 개념(local, session)
 
 ### window.localStorage
 
@@ -63,12 +63,14 @@ json이 문자데이터인 이유는 데이터 통신이 무겁지 않게 이루
 `localStorage`에 저장한 자료는 **페이지 프로토콜별로 구분**하며, 같은 페이지의 HTTP와 HTTPS는 다른 `localStorage`에 저장된다.
 
 - 로컬 Storage 객체에 접근하여 값 추가 및 할당
+
   ```jsx
   //localStorage.setItem('key','value');
   localStorage.setItem("myCat", "Tom");
 
   const cat = localStorage.getItem("myCat");
   ```
+
 - 제거
   ```jsx
   //localStorage.removeItem('key');
@@ -81,6 +83,7 @@ json이 문자데이터인 이유는 데이터 통신이 무겁지 않게 이루
 - localStorage 데이터 수정
   localStorage는 key와 value의 쌍으로 이루어진 포맷으로 하나의 key는 하나의 value만을 갖는다.
   즉, localStorage의 데이터 값을 수정할 때에는 데이터를 불러와 수정 후 재할당을 통해서 수정이 가능하다.
+
   ```jsx
   localStorage.setItem("myCat", "Jerry");
 
