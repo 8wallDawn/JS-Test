@@ -1,86 +1,140 @@
-### Import와 Export를 통한 가져오기, 내보내기
+## Lodash
 
 ---
 
-프로젝트를 만들면서 많은 js 파일들이 생기게 되는데 특정 js파일에서의 생성한 함수, 변수 등을 다른 js에서도 사용하며 활용할 수 있도록 하는 역할을 import(가져오기), export(내보내기)이 한다.
+### Lodash 사용법
 
-### Export
+---
 
-`export` 는 JavaScript 모듈에서 함수, 객체, 원시 값을 내보낼 때 사용하며, 내보낸 값은 다른 프로그램에서 `import` 를 통해서 가져가 사용할 수 있다.
+[Lodash](https://lodash.com/)
 
-내보내지는 모듈은 `"use strict"`와 관계없이 엄격 모드가 적용된다.
+Lodash 공식 홈페이지에서 Documentation 에서 사용가능한 함수들의 예제를 확인할 수 있다.
 
-- 기본(default) 내보내기
-  ```jsx
-  // 모듈 내의 선언한 식별자 내보내기
-  export { 식별자 as default };
+### lodash 설치
 
-  // 각각의 식별자 내보내기
-  export default function () {...};
-  export default class {...};
-  ```
-  모듈(js)에서 기본 내보내기는 하나만 가능하다.
-  내보낸 모듈을 어떤 이름으로도 `import` 할 수 있다. 즉 내보낸 모듈의 이름을 가져온 프로그램에서 임의로 설정하여 사용이 가능하다.
-  ```jsx
-  // exportK.js
-  let k;
-  export default k = 12;
+---
 
-  // importK.js
-  import m from "./exportK"; // exportK.js에서 내보낸 k의 이름을 m으로 변경
-  console.log(m); // 12
-  ```
-- 유명(named) 내보내기
-  ```jsx
-  // 모듈 내의 선언한 식별자 내보내기
-  export { 식별자1, 식별자2} ;
+1. CDN 설치
 
-  // 각각의 식별자 내보내기
-  export let 식별자1 = 10;
-  export function myFunction() {...};
-  ```
-  하나의 모듈(js)에서 유명 내보내기는 여러 개 존재할 수 있다.
-  단, 유명 내보내기는 가져갈 때 내보낸 이름과 동일한 이름을 사용해야 한다.
-  식별자가 출동할 경우를 대비하여, 이름 변경이 가능하다.
-  ```jsx
-  import { 식별자1 as 변경한 식별자, 식별자2 as 변경한 식별자};
-  ```
+[lodash.js - Libraries - cdnjs - The #1 free and open source CDN built to make life easier for developers](https://cdnjs.com/libraries/lodash.js)
 
-### Import
+1. npm을 통한 설치
 
-`import`는 다른 모듈에서 내보낸 함수, 객체, 원시값을 가져올 때 사용하며, 가져온 모듈은 무조건 엄격 모드이다.
+   터미널에서 `$ npm i lodash` 을 통해서 lodash를 설치하고
 
-- 구문 및 설명
-  ```jsx
-  // export.js
-  export const name = "Lee";
-  export const age = "25";
-  export const email = "dankthedust@gmail.com";
-  export function introduce(name, age, email) {
-    return `my name is ${name}, i'm ${age} years old. Please Contact me ${email}`;
-  }
-  ```
-  모듈의 모든 export를 한꺼번에 지정할 목적으로 사용이 가능한데 이러한 기호를 와일드카드(Wildcard Character, \*)이라고 한다.
-  ```jsx
-  // importWildCard.js
-  // 가져온 wildCard의 식별자를 I로 지정
-  import * as I from "./export";
-  // wildCard로 가져온 I 사용
-  console.log(I.name, I.age, I.email); //Lee 25 dankthedust@gmail.com
-  console.log(I.introduce(I.name, I.age, I.email)); //my name is Lee, i'm 25 years old. Please Contact me dankthedust@gmail.com
-  ```
-  모듈에서 하나 이상의 값을 가져온다.
-  ```jsx
-  // 한가지 값
-  import { name } from "./export";
+   `import _ frin 'lodash'` 를 통해서 사용한다.
 
-  // 하나 이상의 값
-  import { name, age } from "./export";
-  ```
-  모듈에서 가져온 값의 식별자를 다른 식별자(별명)으로 변경하고 싶은 경우
-  ```jsx
-  //식별자 age를 old로 변경하여 사용
-  import { name, age as old } from "./export";
+### 자주 활용되는 함수
 
-  console.log(name, old);
-  ```
+---
+
+1. `_.throttle(함수, 시간)` - 일정 시간에 한번씩 실행되도록 제한하는 메소드
+
+   ```jsx
+   window.addEventListener(
+     "scroll",
+     _.throttle(
+       function () {
+         /*function*/
+       } /*time*/
+     )
+   );
+   ```
+
+1. `_.uniqBy(중복값이 존재하는 변수, 중복제거의 기준값)`
+
+   ```jsx
+   import _ from "lodash";
+
+   const usersA = [
+     { userId: "1", name: "Kim" },
+     { userId: "2", name: "Lee" },
+   ];
+   const usersB = [
+     { userId: "1", name: "Kim" },
+     { userId: "3", name: "Park" },
+   ];
+
+   const usersC = usersA.concat(usersB);
+   ```
+
+   에서 usersC은 `concat()` 으로 병합되어 반환된 값을 가지지만 내부에는 중복값 `{userId: '1', name: 'Kim'}`이 존재한다.
+
+   이때, 어떠한 기준을 통해서 중복된 값을 제거해주는 lodash 메소드가 `uniqBy()`다.
+
+   ```jsx
+   console.log("uniqBy", _.uniqBy(usersC, "userId"));
+   ```
+
+   다음과 같이 `'userId'`를 기준으로 중복된 값을 찾고 제거할 수 있다.
+
+1. `_.unionBy(중복값이 존재하는 변수, 중복제거의 기준값)`
+
+   ```jsx
+   import _ from "lodash";
+
+   const usersA = [
+     { userId: "1", name: "Kim" },
+     { userId: "2", name: "Lee" },
+   ];
+   const usersB = [
+     { userId: "1", name: "Kim" },
+     { userId: "3", name: "Park" },
+   ];
+   ```
+
+   마찬가지로 2에서 확인하듯 단순히 usersA와 usersB를 병합하면 내부에는 중복값 `{userId: '1', name: 'Kim'}`이 존재한다.
+
+   중복값을 `'userId'` 를 기준으로 중복값을 제거하면서 병합하여 반환하는 메소드가 `unionBy()`이다.
+
+   ```jsx
+   const usersD = _.unionBy(usersA, usersB, "userId");
+   console.log("unionBy", usersD);
+   ```
+
+1. `_.find(*obj*, *value*)`
+
+   특정 값을 통해서 obj 내의 특정 프로퍼티를 찾아내는 메소드이다. `_.findIndex()`를 통해서 index 번호를 알아 낼 수도 있다.
+
+   ```jsx
+   import _ from "lodash";
+
+   const users = [
+     { userId: "1", name: "Lee" },
+     { userId: "2", name: "Kim" },
+     { userId: "3", name: "Park" },
+     { userId: "4", name: "Choi" },
+     { userId: "5", name: "Jung" },
+   ];
+
+   // find()
+   // {name: 'Park'} 인 프로퍼티 출력
+   const foundUser = _.find(users, { name: "Park" });
+   console.log(foundUser); // {userId: '3', name: 'Park'}
+
+   // findIndex()
+   // {name: 'Choi'} 인 프로퍼티의 인덱스 값 출력
+   const foundUserIndex = _.findIndex(users, { name: "Choi" });
+   console.log(foundUserIndex); // 3
+   ```
+
+1. `_.remove(*obj*, *value*)`
+
+   특정 값을 통해서 obj 내의 특정 프로퍼티를 찾아 제거한다.
+
+   ```jsx
+   import _ from "lodash";
+
+   const users = [
+     { userId: "1", name: "Lee" },
+     { userId: "2", name: "Kim" },
+     { userId: "3", name: "Park" },
+     { userId: "4", name: "Choi" },
+     { userId: "5", name: "Jung" },
+   ];
+
+   // remove()
+   // {name: 'Kim'} 인 프로퍼티 값 제거
+   _.remove(users, { name: "Kim" });
+   console.log(users); // (4) [{...}, {...}, {...}, {...}]
+   ```
