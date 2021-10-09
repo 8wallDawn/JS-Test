@@ -43,22 +43,44 @@
   단, 유명 내보내기는 가져갈 때 내보낸 이름과 동일한 이름을 사용해야 한다.
   식별자가 출동할 경우를 대비하여, 이름 변경이 가능하다.
   ```jsx
-  export { 식별자1 as 변경한 식별자, 식별자2 as 변경한 식별자};
+  import { 식별자1 as 변경한 식별자, 식별자2 as 변경한 식별자};
   ```
-  모듈의 모든 export를 한꺼번에 지정할 목적으로 사용이 가능한데 이러한 기호를 와일드카드(Wildcard Character, \*)이라고 한다.
+
+### Import
+
+`import`는 다른 모듈에서 내보낸 함수, 객체, 원시값을 가져올 때 사용하며, 가져온 모듈은 무조건 엄격 모드이다.
+
+- 구문 및 설명
   ```jsx
-  // exportWildCard.js
+  // export.js
   export const name = "Lee";
   export const age = "25";
   export const email = "dankthedust@gmail.com";
   export function introduce(name, age, email) {
     return `my name is ${name}, i'm ${age} years old. Please Contact me ${email}`;
   }
-
+  ```
+  모듈의 모든 export를 한꺼번에 지정할 목적으로 사용이 가능한데 이러한 기호를 와일드카드(Wildcard Character, \*)이라고 한다.
+  ```jsx
   // importWildCard.js
   // 가져온 wildCard의 식별자를 I로 지정
-  import * as I from "./exportWildCard";
+  import * as I from "./export";
   // wildCard로 가져온 I 사용
   console.log(I.name, I.age, I.email); //Lee 25 dankthedust@gmail.com
   console.log(I.introduce(I.name, I.age, I.email)); //my name is Lee, i'm 25 years old. Please Contact me dankthedust@gmail.com
+  ```
+  모듈에서 하나 이상의 값을 가져온다.
+  ```jsx
+  // 한가지 값
+  import { name } from "./export";
+
+  // 하나 이상의 값
+  import { name, age } from "./export";
+  ```
+  모듈에서 가져온 값의 식별자를 다른 식별자(별명)으로 변경하고 싶은 경우
+  ```jsx
+  //식별자 age를 old로 변경하여 사용
+  import { name, age as old } from "./export";
+
+  console.log(name, old);
   ```
