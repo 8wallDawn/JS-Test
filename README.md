@@ -1,140 +1,106 @@
-## Lodash
+## JSON
+
+JSON은 속성과 값으로 쌍을 이루는 데이터 포맷으로, 비동기 브라우저/서버 통신(AJAX)를 위해 넓게는 XML을 대체한다.
+
+특히, 인터넷에서 자료를 주고 받을 때 그 자료를 표현하는 방법으로 알려져 있다.
+
+JSON파일은 하나의 문자데이터이나, JavaScript에서 데이터 값을 불러와지면서 그 파일의 자료형이 해석되어 사용된다.
+
+```json
+// myData.json
+{
+  "name": "Lee",
+  "age": 25,
+  "emails": ["dankthedust@gmail.com", "8wall_dawn@kakao.com"]
+}
+```
+
+```jsx
+import myData from "./myData.json";
+
+console.log(typeof myData); // Object
+
+const user = {
+  name: "Lee",
+  age: 25,
+  emails: ["dankthedust@gmail.com", "8wall_dawn@kakao.com"],
+};
+
+// user를 string(문자열) 데이터로 변환
+const str = JSON.stringify(user);
+// 출력되는 str의 값이 myData.json과 동일한 것을 알 수 있다.
+console.log(str); // {"name":"Lee","age":25,"emails":["dankthedust@gmail.com","8wall_dawn@kakao.com"]}
+```
+
+즉, 위의 예제에서처럼 json은 하나의 문자데이터이지만 형식에 따라 자료형이 해석되어 변형된다.
+
+json이 문자데이터인 이유는 데이터 통신이 무겁지 않게 이루어 지도록 하기 위함이며,
+
+따라서 `JSON.stringify(value)`는 통신하고자 하는 자료를 문자데이터 변환하고자 할 때 사용되고 `JSON.parse(value)`는 사용하고자 하는 자료를 parse(분석하다)하여 javaScript 내에서 활용할 수 있도록 하는 메소드이다.
+
+## JSON의 기본 자료형
 
 ---
 
-### Lodash 사용법
+- 수 (Number)
+- 문자열 (String) 문자열은 큰 따옴표(")로만 구분하며 역슬래시 [이스케이프 문법](https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84_%EB%AC%B8%EC%9E%90)을 지원한다.
+  즉, 배열이나 객체내의 문자열은 모두 큰 따옴표로 묶여 있어야한다.
+- Boolean(참 거짓 값)
+- 배열(Array)
+- 객체(Object)
+- null
+
+##Storage의 개념(local, session)
+
+### window.localStorage
 
 ---
 
-[Lodash](https://lodash.com/)
+`localStorage`는 페이지가 닫혀도 사라지지 않는 반 영구적 브라우저 내의 저장소다.
 
-Lodash 공식 홈페이지에서 Documentation 에서 사용가능한 함수들의 예제를 확인할 수 있다.
+("사생활 보호 모드" 중 생성한 `localStorage` 데이터는 마지막 "사생활 보호" 탭이 닫힐 때 지워진다.)
 
-### lodash 설치
+`localStorage`에 저장한 자료는 **페이지 프로토콜별로 구분**하며, 같은 페이지의 HTTP와 HTTPS는 다른 `localStorage`에 저장된다.
+
+- 로컬 Storage 객체에 접근하여 값 추가 및 할당
+  ```jsx
+  //localStorage.setItem('key','value');
+  localStorage.setItem("myCat", "Tom");
+
+  const cat = localStorage.getItem("myCat");
+  ```
+- 제거
+  ```jsx
+  //localStorage.removeItem('key');
+  localStorage.removeItem("myCat");
+  ```
+- localStorage 내의 항목 전체 제거
+  ```jsx
+  localStorage.clear();
+  ```
+- localStorage 데이터 수정
+  localStorage는 key와 value의 쌍으로 이루어진 포맷으로 하나의 key는 하나의 value만을 갖는다.
+  즉, localStorage의 데이터 값을 수정할 때에는 데이터를 불러와 수정 후 재할당을 통해서 수정이 가능하다.
+  ```jsx
+  localStorage.setItem("myCat", "Jerry");
+
+  let cat = localStorage.getItem("myCat");
+  cat = "Tom";
+
+  localStorage.setItem("myCat", cat);
+  ```
+
+### window.sessionStorage
 
 ---
 
-1. CDN 설치
+`sessionStorage`는 페이지가 닫히면 동시에 사라지는 브라우저 내의 저장소다.
 
-[lodash.js - Libraries - cdnjs - The #1 free and open source CDN built to make life easier for developers](https://cdnjs.com/libraries/lodash.js)
+`sessionSotrage`의 특성으로
 
-1. npm을 통한 설치
+- 페이지 세션은 브라우저가 열려있는 한 새로고침과 페이지 복구를 거쳐도 남아있는다.
+- **페이지를 새로운 탭이나 창에서 열면, 세션 쿠키의 동작과는 다르게 최상위 브라우징 맥락의 값을 가진 새로운 세션을 생성한다.**
+- 같은 URL을 다수의 탭/창에서 열면 각각의 탭/창에 대해 새로운 `sessionStorage`를 생성한다.
+- 탭/창을 닫으면 세션이 끝나고 `sessionStorage` 안의 객체를 초기화한다.
 
-   터미널에서 `$ npm i lodash` 을 통해서 lodash를 설치하고
-
-   `import _ frin 'lodash'` 를 통해서 사용한다.
-
-### 자주 활용되는 함수
-
----
-
-1. `_.throttle(함수, 시간)` - 일정 시간에 한번씩 실행되도록 제한하는 메소드
-
-   ```jsx
-   window.addEventListener(
-     "scroll",
-     _.throttle(
-       function () {
-         /*function*/
-       } /*time*/
-     )
-   );
-   ```
-
-1. `_.uniqBy(중복값이 존재하는 변수, 중복제거의 기준값)`
-
-   ```jsx
-   import _ from "lodash";
-
-   const usersA = [
-     { userId: "1", name: "Kim" },
-     { userId: "2", name: "Lee" },
-   ];
-   const usersB = [
-     { userId: "1", name: "Kim" },
-     { userId: "3", name: "Park" },
-   ];
-
-   const usersC = usersA.concat(usersB);
-   ```
-
-   에서 usersC은 `concat()` 으로 병합되어 반환된 값을 가지지만 내부에는 중복값 `{userId: '1', name: 'Kim'}`이 존재한다.
-
-   이때, 어떠한 기준을 통해서 중복된 값을 제거해주는 lodash 메소드가 `uniqBy()`다.
-
-   ```jsx
-   console.log("uniqBy", _.uniqBy(usersC, "userId"));
-   ```
-
-   다음과 같이 `'userId'`를 기준으로 중복된 값을 찾고 제거할 수 있다.
-
-1. `_.unionBy(중복값이 존재하는 변수, 중복제거의 기준값)`
-
-   ```jsx
-   import _ from "lodash";
-
-   const usersA = [
-     { userId: "1", name: "Kim" },
-     { userId: "2", name: "Lee" },
-   ];
-   const usersB = [
-     { userId: "1", name: "Kim" },
-     { userId: "3", name: "Park" },
-   ];
-   ```
-
-   마찬가지로 2에서 확인하듯 단순히 usersA와 usersB를 병합하면 내부에는 중복값 `{userId: '1', name: 'Kim'}`이 존재한다.
-
-   중복값을 `'userId'` 를 기준으로 중복값을 제거하면서 병합하여 반환하는 메소드가 `unionBy()`이다.
-
-   ```jsx
-   const usersD = _.unionBy(usersA, usersB, "userId");
-   console.log("unionBy", usersD);
-   ```
-
-1. `_.find(*obj*, *value*)`
-
-   특정 값을 통해서 obj 내의 특정 프로퍼티를 찾아내는 메소드이다. `_.findIndex()`를 통해서 index 번호를 알아 낼 수도 있다.
-
-   ```jsx
-   import _ from "lodash";
-
-   const users = [
-     { userId: "1", name: "Lee" },
-     { userId: "2", name: "Kim" },
-     { userId: "3", name: "Park" },
-     { userId: "4", name: "Choi" },
-     { userId: "5", name: "Jung" },
-   ];
-
-   // find()
-   // {name: 'Park'} 인 프로퍼티 출력
-   const foundUser = _.find(users, { name: "Park" });
-   console.log(foundUser); // {userId: '3', name: 'Park'}
-
-   // findIndex()
-   // {name: 'Choi'} 인 프로퍼티의 인덱스 값 출력
-   const foundUserIndex = _.findIndex(users, { name: "Choi" });
-   console.log(foundUserIndex); // 3
-   ```
-
-1. `_.remove(*obj*, *value*)`
-
-   특정 값을 통해서 obj 내의 특정 프로퍼티를 찾아 제거한다.
-
-   ```jsx
-   import _ from "lodash";
-
-   const users = [
-     { userId: "1", name: "Lee" },
-     { userId: "2", name: "Kim" },
-     { userId: "3", name: "Park" },
-     { userId: "4", name: "Choi" },
-     { userId: "5", name: "Jung" },
-   ];
-
-   // remove()
-   // {name: 'Kim'} 인 프로퍼티 값 제거
-   _.remove(users, { name: "Kim" });
-   console.log(users); // (4) [{...}, {...}, {...}, {...}]
-   ```
+`localStorage`와 동일하게 저장한 자료는 **페이지 프로토콜별로 구분**한다.
