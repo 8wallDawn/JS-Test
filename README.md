@@ -38,7 +38,7 @@ json이 문자데이터인 이유는 데이터 통신이 무겁지 않게 이루
 
 따라서 `JSON.stringify(value)`는 통신하고자 하는 자료를 문자데이터 변환하고자 할 때 사용되고 `JSON.parse(value)`는 사용하고자 하는 자료를 parse(분석하다)하여 javaScript 내에서 활용할 수 있도록 하는 메소드이다.
 
-## JSON의 기본 자료형
+### JSON의 기본 자료형
 
 ---
 
